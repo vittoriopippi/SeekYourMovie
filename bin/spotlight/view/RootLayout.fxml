@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="740.0" prefWidth="1310.0" styleClass="background" stylesheets="@tryme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spotlight.view.RootLayoutController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Salva">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleRename" text="Rinomina tutto" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleRefresh" text="Refresh">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP" shortcut="ANY" />
+                     </accelerator></MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Esci" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Modifica">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleAddPath" text="Elenco percorsi..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleRecoverFilename" text="Ripristina nomi film" />
+                  <Menu mnemonicParsing="false" text="Ordina per">
+                     <items>
+                        <CheckMenuItem fx:id="anno" mnemonicParsing="false" onAction="#handleSortByData" text="Anno" />
+                        <CheckMenuItem fx:id="bit_rate" mnemonicParsing="false" onAction="#handleSortByBitRate" text="Bit rate" />
+                        <CheckMenuItem fx:id="budget" mnemonicParsing="false" onAction="#handleSortByBudget" text="Budget" />
+                        <CheckMenuItem fx:id="dimensione" mnemonicParsing="false" onAction="#handleSortBySize" text="Dimensione" />
+                        <CheckMenuItem fx:id="durata" mnemonicParsing="false" onAction="#handleSortByRuntime" text="Durata" />
+                        <CheckMenuItem fx:id="filename" mnemonicParsing="false" onAction="#handleSortByFilename" text="Filename" />
+                        <CheckMenuItem fx:id="fps" mnemonicParsing="false" onAction="#handleSortByFps" text="Frame rate" />
+                        <CheckMenuItem fx:id="incassi" mnemonicParsing="false" onAction="#handleSortByRevenue" text="Incassi" />
+                        <CheckMenuItem fx:id="risoluzione" mnemonicParsing="false" onAction="#handleSortByQuality" text="Risoluzione" />
+                        <CheckMenuItem fx:id="titolo" mnemonicParsing="false" onAction="#handleSortByTitle" text="Titolo" />
+                        <CheckMenuItem fx:id="titolo_originale" mnemonicParsing="false" onAction="#handleSortByOriginalTitle" text="Titolo originale" />
+                        <CheckMenuItem fx:id="voto" mnemonicParsing="false" onAction="#handleSortByRating" text="Voto" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <CheckMenuItem fx:id="cres" mnemonicParsing="false" onAction="#handleOrderCres" text="Ordine crescente" />
+                        <CheckMenuItem fx:id="decr" mnemonicParsing="false" onAction="#handleOrderDecr" text="Ordine decrescente" />
+                     </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#handleRemoveNotFound" text="Rimuovi non trovati" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSettings" text="Preferenze" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleReset" text="Reset" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Visualizza">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#handleShowDuplicate" text="Film duplicati" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowNotFound" text="Film non trovati" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleResearch" text="Ricerca">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleFullScreen" text="FullScreen">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F11" control="UP" meta="UP" shift="UP" shortcut="ANY" />
+                     </accelerator></MenuItem>
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Aiuto">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="Informazioni" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleThereIsFFmpeg" text="Controlla FFmpeg" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

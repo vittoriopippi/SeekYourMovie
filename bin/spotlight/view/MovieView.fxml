@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@tryme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spotlight.view.MovieViewController">
+   <children>
+      <SplitPane dividerPositions="0.7621283255086072" layoutX="846.0" layoutY="232.0" prefHeight="720.0" prefWidth="1280.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane fx:id="mainAnchor" minHeight="0.0" minWidth="0.0" prefHeight="718.0" prefWidth="1195.0">
+               <children>
+                  <ScrollPane fx:id="myMovieScroll" fitToWidth="true" hbarPolicy="NEVER" layoutX="376.0" layoutY="234.0" prefHeight="718.0" prefWidth="970.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                    <content>
+                      <AnchorPane fx:id="myMovieAnchorPane" />
+                    </content>
+                  </ScrollPane>
+                  <AnchorPane prefHeight="30.0" prefWidth="200.0" styleClass="background-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <JFXProgressBar fx:id="progress" prefHeight="20.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <Label layoutX="396.0" layoutY="6.0" text="Stato connessione:" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="420.0" AnchorPane.topAnchor="6.0">
+                           <font>
+                              <Font name="System Italic" size="13.0" />
+                           </font></Label>
+                        <Text fx:id="connection" layoutX="510.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Disconnesso" wrappingWidth="84.39995193481445" AnchorPane.bottomAnchor="5.7373046875" AnchorPane.rightAnchor="327.60004806518555">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font></Text>
+                        <GridPane prefHeight="22.0" prefWidth="376.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="570.0" AnchorPane.topAnchor="5.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="status" text="Spotlight">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="searchBar" maxHeight="43.0" prefHeight="43.0" prefWidth="922.0" styleClass="background-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField fx:id="searchField" layoutX="45.0" layoutY="7.0" maxHeight="37.0" prefHeight="37.0" prefWidth="872.0" styleClass="text-field-research" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="3.0" />
+                        <JFXButton fx:id="searchClose" layoutX="862.0" layoutY="5.0" onAction="#handlerCloseResearch" prefHeight="37.0" prefWidth="54.0" styleClass="button-close" text="X" wrapText="true" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0" />
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+          <AnchorPane maxWidth="350.0" minHeight="0.0" minWidth="350.0" prefHeight="160.0" prefWidth="100.0" styleClass="background">
+               <children>
+                  <JFXTabPane fx:id="tabPane" prefHeight="718.0" prefWidth="350.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <tabs>
+                        <Tab text="Film info">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane fx:id="showDetailsScroll" fitToWidth="true" hbarPolicy="NEVER" prefHeight="718.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <content>
+                                        <AnchorPane prefHeight="716.0" prefWidth="298.0">
+                                             <children>
+                                                <VBox layoutX="14.0" layoutY="335.0" prefHeight="716.0" prefWidth="348.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <ImageView fx:id="myMovieImage" fitHeight="450.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian,grey,10,0.4,0,0);">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="30.0" />
+                                                         </VBox.margin>
+                                                      </ImageView>
+                                                      <Label text="Nome file">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="40.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="moviePathText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Titolo">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="titleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Titolo originale">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="originalTitleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Lingua originale">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="originalLangText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Durata">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="runtimeText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Generi">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="genresText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin></Text>
+                                                      <Label text="Trama">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="overviewText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Voto">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="vote_averageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Numero voti">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="vote_countText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Data di uscita">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="releaseDateText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Tagline">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="taglineText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Budget">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="budjetText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Incassi">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="revenueText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab text="Video info">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="683.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <content>
+                                          <AnchorPane prefHeight="716.0" prefWidth="298.0">
+                                             <children>
+                                                <VBox layoutX="14.0" layoutY="335.0" prefHeight="716.0" prefWidth="348.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <Label text="Nome file">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="filename" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Titolo">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="title" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Dimensione">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="fileSize" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Risoluzione">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="resolution" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Proporzione">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="proportion" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Durata nominale">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="nominal_runtime" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Durata effettiva">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="effective_runtime" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Codec">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="codec" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Encoder">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="encoder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Frame rate">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="fps" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Bit rate">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <Text fx:id="bps" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <Label text="Formato">
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" top="15.0" />
+                                                         </VBox.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text fx:id="format" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="--" wrappingWidth="310.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
