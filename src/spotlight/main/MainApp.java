@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import spotlight.exceptions.ExceptionDialog;
 import spotlight.model.LocalData;
 import spotlight.model.Movie;
 import spotlight.model.MovieLoader;
@@ -31,51 +32,49 @@ import spotlight.view.SettingsController;
 
 public class MainApp extends Application {
 	public static boolean researching;
-	public static boolean needSave=true;
+	public static boolean needSave = true;
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	public static MovieViewController mvController;
 	public static ModifyMovieController mmController;
 	public static DuplicateController dController;
 
-	public static ObservableList<File> moviePath=FXCollections.observableArrayList();
+	public static ObservableList<File> moviePath = FXCollections.observableArrayList();
 
-	private ObservableMap<IntegerProperty,Movie> movieData=FXCollections.observableHashMap();
+	private ObservableMap<IntegerProperty, Movie> movieData = FXCollections.observableHashMap();
 
 	@Override
-	public void start(Stage primaryStage){
-		this.primaryStage=primaryStage;
+	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("SEEK YOUR MOVIE");
-		
-		// Set the application icon.
-	    this.primaryStage.getIcons().add(new Image("file:resources/defaultImages/Sym.png"));
 
-		//Creo nella home dell'utente la seguente gerarchia:
-		//- Spotligh:
-		//			--Path: path_file.txt --> contiene un elenco dei path inseriti dall'utente
-		//			--Poster: -->contiene i poster dei film trovati
-		//			--Data: --> contiene tutte le info di tutti i film mostrati a video
+		// Set the application icon.
+		this.primaryStage.getIcons().add(new Image("file:resources/defaultImages/Sym.png"));
+
+		// Creo nella home dell'utente la seguente gerarchia:
+		// - Spotlight:
+		// ------------Path: path_file.txt --> contiene un elenco dei path inseriti dall'utente
+		// ------------Poster: -->contiene i poster dei film trovati
+		// ------------Data: --> contiene tutte le info di tutti i film mostrati a video
 		Setting.settingDir();
 
-		//Carico i path precedentemente inseriti dall'utente (se ve ne sono)
+		// Carico i path precedentemente inseriti dall'utente (se ve ne sono)
 		LocalData.loadPath();
 		LocalData.loadSettings();
 
-
 		initRootLayout();
 		showMovieView();
-		
-		new Thread(new ConnectionManager()).start();;
+
+		new Thread(new ConnectionManager()).start();
 
 		new Thread(new MovieLoader()).start();
-		researching=true;
+		researching = true;
 
-		//Salvataggio dati!!
-		this.primaryStage.setOnCloseRequest(event->{
+		// Salvataggio dati!!
+		this.primaryStage.setOnCloseRequest(event -> {
 			OnClosing.close();
 		});
 	}
-
 
 	/**
 	 * Initializes the root layout.
@@ -84,27 +83,28 @@ public class MainApp extends Application {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/spotlight/view/RootLayout.fxml")); // se inizio con "/", parte da src, quindi devo mettere: "/package/sottocartelle.../file.fxml"
+			loader.setLocation(MainApp.class.getResource("/spotlight/view/RootLayout.fxml"));
+			// se inizio con "/", parte da src, quindi devo mettere:
+			// "/package/sottocartelle.../file.fxml"
 			rootLayout = (BorderPane) loader.load();
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 
-
 			// Give the controller access to the main app.
 			RootLayoutController controller = loader.getController();
 			controller.setMainApp(this);
 
-
 			primaryStage.show();
 		} catch (IOException e) {
+			ExceptionDialog.show(e);
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Mostra i film sul tab "myMovieTab" del RootLayout
+	 * Mostra la finestra contenete il mesonryPane ed i tab laterali utilizzati per mostrare le informazioni dei film
 	 */
 	public void showMovieView() {
 		try {
@@ -119,13 +119,16 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			MovieViewController controller = loader.getController();
 			controller.setMainApp(this);
-			mvController=controller;
+			mvController = controller;
 		} catch (IOException e) {
+			ExceptionDialog.show(e);
 			e.printStackTrace();
 		}
 	}
 
-
+	/**
+	 * Mostra la finestra che permette di modificare i path delle directory dove cercare i film
+	 */
 	public void showMoviePathEditor() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -149,11 +152,14 @@ public class MainApp extends Application {
 			dialogStage.showAndWait();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			ExceptionDialog.show(e);
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Mostra la finestra che permette di modificare le informazioni dei film
+	 */
 	public void showMovieModify() {
 		try {
 			// Load person overview.
@@ -173,16 +179,20 @@ public class MainApp extends Application {
 			// Set the person into the controller.
 			ModifyMovieController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			
-			mmController=controller;
 
-			//dialogStage.showAndWait();
-			dialogStage.show(); //Fondamentale
+			mmController = controller;
+
+			// dialogStage.showAndWait();
+			dialogStage.show(); // Fondamentale
 		} catch (IOException e) {
+			ExceptionDialog.show(e);
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Mostra la finestra utilizzata per la gestione dei duplicati
+	 */
 	public void showDuplicate() {
 		try {
 			// Load person overview.
@@ -201,16 +211,20 @@ public class MainApp extends Application {
 
 			DuplicateController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			
-			dController=controller;
 
-			//dialogStage.showAndWait();
-			dialogStage.show(); //Fondamentale
+			dController = controller;
+
+			// dialogStage.showAndWait();
+			dialogStage.show(); // Fondamentale
 		} catch (IOException e) {
+			ExceptionDialog.show(e);
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Mostra la finestra per la modifica delle preferenze
+	 */
 	public void showSettings() {
 		try {
 			// Load person overview.
@@ -231,13 +245,17 @@ public class MainApp extends Application {
 			SettingsController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 
-//			dialogStage.showAndWait();
+			// dialogStage.showAndWait();
 			dialogStage.show();
 		} catch (IOException e) {
+			ExceptionDialog.show(e);
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Mostra una finestra che permette di controllare la presenza o meno di ffmpeg nel sistema
+	 */
 	public void showCheckFFmpeg() {
 		try {
 			// Load person overview.
@@ -260,28 +278,31 @@ public class MainApp extends Application {
 
 			dialogStage.show();
 		} catch (IOException e) {
+			ExceptionDialog.show(e);
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Returns the main stage.
-	 * @return
+	 * @return primaryStage
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
 	/**
-	 * Returns the data as an observable hash map of Persons. 
-	 * @return
+	 * Returns the data as an observable hash map of Persons.
+	 * @return movieData
 	 */
-	public ObservableMap<IntegerProperty,Movie> getMovieData() {
+	public ObservableMap<IntegerProperty, Movie> getMovieData() {
 		return movieData;
 	}
 
-
-	public BorderPane getRootLayout(){
+	/**
+	 * @return rootLayout
+	 */
+	public BorderPane getRootLayout() {
 		return rootLayout;
 	}
 
