@@ -21,7 +21,6 @@ public class LoadDuplicate implements Runnable{
 		ArrayList<MovieButton> dup=DuplicateFinder.searchDuplicate();
 		
 		for(MovieButton m:dup){
-			//System.out.println(hBox+"\n33\n"+m.getMovie()+"\n33\n");
 			MovieButtonDuplicate dupBut=new MovieButtonDuplicate(null);
 			dupBut.setMovie(m.getMovie());
 			dupBut.setAbs_path(m.getAbs_path());

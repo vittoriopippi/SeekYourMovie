@@ -66,4 +66,14 @@ public class BuildLink {
 				+ Setting.LANGUAGE;
 		return link;
 	}
+
+	public static String GetImage(String posterPath) {
+		if(posterPath == null)
+			return null;
+		String link = null;
+		link = "https://image.tmdb.org/t/p/"
+				+ Setting.QUALITY
+				+ posterPath;
+		return link;
+	}
 }

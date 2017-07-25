@@ -17,6 +17,7 @@ public class Setting {
 	public static Integer DEEP = 3;
 	public static Boolean RECURSIVE = false;
 	public static Double BUTTON_HIGH = 225.0;
+	public static String QUALITY = "w300";
 	public static DecimalFormat df = new DecimalFormat("#.##");
 	public static ArrayList<MovieButton> TEMP_ARRAY= new ArrayList<MovieButton>();
 

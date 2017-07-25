@@ -3,6 +3,7 @@ package spotlight.util;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import spotlight.exceptions.ExceptionDialog;
 
 public class ConnectionManager implements Runnable {
 	boolean showed=false;
@@ -25,22 +26,22 @@ public class ConnectionManager implements Runnable {
 	//			Thread.sleep(5000);
 	//			run();
 	//		} catch (InterruptedException e) {
-	//			e.printStackTrace();
+	//			ExceptionDialog.show(e);e.printStackTrace();
 	//		}
 	//
 	//
 	//	}
 	@Override
 	public void run() {
-		while(true){
-			if(Check.Connection())
+		while (true) {
+			if (Check.Connection())
 				BarManager.updateConnection(true);
 			else
 				BarManager.updateConnection(false);
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				ExceptionDialog.show(e);
 				e.printStackTrace();
 			}
 		}

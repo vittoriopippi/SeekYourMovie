@@ -9,11 +9,6 @@ public class DelDir {
 	 */
 	public static void delDir(String dir) {
 		boolean success = delDirRec(new File(dir));
-//		if (success) {
-//			System.out.println("Ho cancellato la cartella: " + dir);
-//		} else {
-//			System.out.println("Impossibile cancellare la cartella: " + dir);
-//		}
 	}
 
 	/*

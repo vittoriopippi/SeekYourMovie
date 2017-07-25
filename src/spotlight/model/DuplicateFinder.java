@@ -24,11 +24,9 @@ public class DuplicateFinder{
 					tmpBut2=(MovieButton) masonryButtons.get(j);
 					if(tmpBut2.getMovie()!=null && tmpBut2.getMovie().getTitle()!=null){
 						if(tmpBut1.getMovie().getTitle().equals(tmpBut2.getMovie().getTitle()) && !dup.contains(tmpBut2)){ //per il confronto tra stringhe bisogna usare equals
-							//System.out.println("\n22\n"+tmpBut2.getMovie()+"\n22\n");
 							dup.add(tmpBut2);
 							if(first){
 								dup.add(tmpBut1);
-								//System.out.println("\n11\n"+tmpBut1.getMovie()+"\n11\n");
 								first=false;
 							}
 						}

@@ -12,6 +12,7 @@ import org.json.simple.parser.ParseException;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
+import spotlight.exceptions.ExceptionDialog;
 import spotlight.ffmpeg.FFmpeg;
 import spotlight.util.BuildLink;
 import spotlight.util.Setting;
@@ -26,7 +27,7 @@ public class Movie implements Serializable {
 	Integer budget;
 	String homepage;
 	Integer id;
-	String imdb_id; 
+	String imdb_id;
 	String original_language;
 	String original_title;
 	String overview;
@@ -43,7 +44,7 @@ public class Movie implements Serializable {
 	Number vote_average;
 	Integer vote_count;
 
-	//Dati del video presi da ffmpeg
+	// Dati del video presi da ffmpeg
 	String codec_name;
 	String codec_long_name;
 	Long width;
@@ -58,34 +59,33 @@ public class Movie implements Serializable {
 	String encoder;
 
 	/*
-	 * @FXML
-	private Button removeButton;
-	@FXML
-	private Button deleteButton;
-	@FXML
-	private Text filename;
-	@FXML
-	private Text fileSize;
-	@FXML
-	private Text title;
-	@FXML
-	private Text nominal_runtime;
-	@FXML
-	private Text effective_runtime;
-	@FXML
-	private Text codec;
-	@FXML
-	private Text resolution;
-	@FXML
-	private Text proportion;
-	@FXML
-	private Text format;
-	@FXML
-	private Text fps;
-	@FXML
-	private Text bps;
-	@FXML
-	private Text encoder;
+	 * @FXML private Button removeButton;
+	 * 
+	 * @FXML private Button deleteButton;
+	 * 
+	 * @FXML private Text filename;
+	 * 
+	 * @FXML private Text fileSize;
+	 * 
+	 * @FXML private Text title;
+	 * 
+	 * @FXML private Text nominal_runtime;
+	 * 
+	 * @FXML private Text effective_runtime;
+	 * 
+	 * @FXML private Text codec;
+	 * 
+	 * @FXML private Text resolution;
+	 * 
+	 * @FXML private Text proportion;
+	 * 
+	 * @FXML private Text format;
+	 * 
+	 * @FXML private Text fps;
+	 * 
+	 * @FXML private Text bps;
+	 * 
+	 * @FXML private Text encoder;
 	 */
 
 	public Movie(JSONObject jobj, String movie_path) {
@@ -99,12 +99,12 @@ public class Movie implements Serializable {
 		super();
 		try {
 			this.movie_path = movie_path;
-			if(id != null){
-				//				System.out.println("ID film: " + id);
+			if (id != null) {
+				// System.out.println("ID film: " + id);
 				String link = BuildLink.GetDetails(id);
-				//				System.out.println("Secondo link: " + link);
+				// System.out.println("Secondo link: " + link);
 				String response = ToClient.Response(link);
-				if(response != null){
+				if (response != null) {
 					JSONParser parser = new JSONParser();
 					JSONObject jobj = (JSONObject) parser.parse(response);
 					TakeFilmInfo(jobj);
@@ -112,16 +112,17 @@ public class Movie implements Serializable {
 					TakeFilmInfo(null);
 				}
 			}
-			if(movie_path!=null){
+			if (movie_path != null) {
 				TakeFFmpegInfo(FFmpeg.getData(movie_path));
 			}
 		} catch (ResourceException | ParseException e) {
+			ExceptionDialog.show(e);
 			e.printStackTrace();
 		}
 	}
 
 	public void TakeFilmInfo(JSONObject jobj) {
-		if(jobj != null){
+		if (jobj != null) {
 			JSONArray jArray = new JSONArray();
 			JSONObject j_temp = null;
 
@@ -131,23 +132,23 @@ public class Movie implements Serializable {
 
 			jArray.addAll((Collection) jobj.get("genres"));
 			genres = "";
-			for(int i = 0; i < jArray.size(); i++){
-				if(jArray.get(i) != null){
+			for (int i = 0; i < jArray.size(); i++) {
+				if (jArray.get(i) != null) {
 					j_temp = (JSONObject) jArray.get(i);
 
-					if(i+1 == jArray.size())
+					if (i + 1 == jArray.size())
 						genres = genres.concat(j_temp.get("name").toString());
 					else
-						genres = genres.concat(j_temp.get("name").toString()+", ");
+						genres = genres.concat(j_temp.get("name").toString() + ", ");
 				}
 			}
 
-			if(jobj.get("budget") != null)
+			if (jobj.get("budget") != null)
 				budget = Integer.parseInt(jobj.get("budget").toString());
 
 			homepage = (String) jobj.get("homepage");
 
-			if(jobj.get("id") != null)
+			if (jobj.get("id") != null)
 				id = Integer.parseInt(jobj.get("id").toString());
 
 			imdb_id = (String) jobj.get("imdb_id");
@@ -159,10 +160,10 @@ public class Movie implements Serializable {
 
 			status = (String) jobj.get("status");
 
-			if(jobj.get("revenue") != null)
+			if (jobj.get("revenue") != null)
 				revenue = Long.parseLong(jobj.get("revenue").toString());
 
-			if(jobj.get("runtime") != null)
+			if (jobj.get("runtime") != null)
 				runtime = Integer.parseInt(jobj.get("runtime").toString());
 
 			release_date = (String) jobj.get("release_date");
@@ -171,12 +172,12 @@ public class Movie implements Serializable {
 			video = (Boolean) jobj.get("video");
 			vote_average = (Number) jobj.get("vote_average");
 
-			if(jobj.get("vote_count") != null)
+			if (jobj.get("vote_count") != null)
 				vote_count = Integer.parseInt(jobj.get("vote_count").toString());
 		}
 	}
 
-	public void TakeFFmpegInfo(JSONObject jobj){
+	public void TakeFFmpegInfo(JSONObject jobj) {
 		codec_name = null;
 		codec_long_name = null;
 		width = null;
@@ -189,106 +190,105 @@ public class Movie implements Serializable {
 		format_long_name = null;
 		bit_rate = null;
 		encoder = null;
-		if(jobj != null && jobj.get("streams") != null){
+		if (jobj != null && jobj.get("streams") != null) {
 			JSONArray jArray = new JSONArray();
 			JSONObject tobj = null;
 
 			jArray.addAll((Collection) jobj.get("streams"));
-			for(int i = 0; i< jArray.size(); i++){
+			for (int i = 0; i < jArray.size(); i++) {
 				tobj = (JSONObject) jArray.get(i);
-				if(tobj.get("codec_type").equals("video")){
+				if (tobj.get("codec_type").equals("video")) {
 					break;
 				}
-			}		
-			if(tobj.get("codec_name") != null)
+			}
+			if (tobj.get("codec_name") != null)
 				codec_name = (String) tobj.get("codec_name");
 
-			if(tobj.get("codec_long_name") != null)
+			if (tobj.get("codec_long_name") != null)
 				codec_long_name = (String) tobj.get("codec_long_name");
 
-			if(tobj.get("width") != null)
+			if (tobj.get("width") != null)
 				width = (Long) tobj.get("width");
 
-			if(tobj.get("height") != null)
+			if (tobj.get("height") != null)
 				height = (Long) tobj.get("height");
 
-			if(tobj.get("display_aspect_ratio") != null)
+			if (tobj.get("display_aspect_ratio") != null)
 				display_aspect_ratio = (String) tobj.get("display_aspect_ratio");
 
-			if(tobj.get("avg_frame_rate") != null){
+			if (tobj.get("avg_frame_rate") != null) {
 				String temp = (String) tobj.get("avg_frame_rate");
 
 				Double num = Double.parseDouble(temp.split("/")[0]);
 				Double den = Double.parseDouble(temp.split("/")[1]);
 
-				avg_frame_rate = Setting.df.format(num/den);	//questo mostro serve per avere solo 2 cifre significative
+				avg_frame_rate = Setting.df.format(num / den); // questo mostro serve per avere solo 2 cifre
+																// significative
 			}
 
-			if(jobj.get("format") != null){
+			if (jobj.get("format") != null) {
 				tobj = (JSONObject) jobj.get("format");
 
-				if(tobj.get("duration") != null)
+				if (tobj.get("duration") != null)
 					duration = new Integer((int) Double.parseDouble(tobj.get("duration").toString()));
 
-				if(tobj.get("size") != null)
+				if (tobj.get("size") != null)
 					size = Long.parseLong(tobj.get("size").toString());
 
-				if(tobj.get("format_name") != null)
+				if (tobj.get("format_name") != null)
 					format_name = (String) tobj.get("format_name");
 
-				if(tobj.get("format_name") != null)
+				if (tobj.get("format_name") != null)
 					format_long_name = (String) tobj.get("format_long_name");
 
-				if(tobj.get("bit_rate") != null)
+				if (tobj.get("bit_rate") != null)
 					bit_rate = Integer.parseInt(tobj.get("bit_rate").toString());
 			}
-			if(tobj.get("tags") != null){
+			if (tobj.get("tags") != null) {
 				tobj = (JSONObject) tobj.get("tags");
-				if(tobj.get("encoder") != null)
+				if (tobj.get("encoder") != null)
 					encoder = (String) tobj.get("encoder");
 			}
 		}
 	}
 
-
-	public void addInfo(Movie tmp){
-		if(codec_name == null)
+	public void addInfo(Movie tmp) {
+		if (codec_name == null)
 			codec_name = tmp.getCodec_name();
-		
-		if(codec_long_name == null)
+
+		if (codec_long_name == null)
 			codec_long_name = tmp.getCodec_long_name();
-		
-		if(width == null)
+
+		if (width == null)
 			width = tmp.getWidth();
-		
-		if(height == null)
+
+		if (height == null)
 			height = tmp.getHeight();
-		
-		if(display_aspect_ratio == null)
+
+		if (display_aspect_ratio == null)
 			display_aspect_ratio = tmp.getDisplay_aspect_ratio();
-		
-		if(avg_frame_rate == null)
+
+		if (avg_frame_rate == null)
 			avg_frame_rate = tmp.getAvg_frame_rate();
-		
-		if(duration == null)
+
+		if (duration == null)
 			duration = tmp.getDuration();
-		
-		if(size == null)
+
+		if (size == null)
 			size = tmp.getSize();
-		
-		if(format_name == null)
+
+		if (format_name == null)
 			format_name = tmp.getFormat_name();
-		
-		if(format_long_name == null)
+
+		if (format_long_name == null)
 			format_long_name = tmp.getFormat_long_name();
-		
-		if(bit_rate == null)
+
+		if (bit_rate == null)
 			bit_rate = tmp.getBit_rate();
-		
-		if(encoder == null)
+
+		if (encoder == null)
 			encoder = tmp.getEncoder();
 	}
-
 
 	@Override
 	public String toString() {
@@ -460,8 +460,5 @@ public class Movie implements Serializable {
 	public String getEncoder() {
 		return encoder;
 	}
-
-
-
 
 }
